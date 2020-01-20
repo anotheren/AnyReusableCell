@@ -72,7 +72,7 @@ extension ReuseBase where Base: UICollectionView {
     
     public func dequeueSupplementaryView<T>(kind: ElementKind, for indexPath: IndexPath) -> T where T: UICollectionReusableView, T: ReusableCell {
         guard let view = base.dequeueReusableSupplementaryView(ofKind: kind.rawValue, withReuseIdentifier: T.reuseIdentifier, for: indexPath) as? T else {
-            fatalError("Register View: \(T.reuseIdentifier) first!")
+            fatalError("Register Supplementary View: \(T.reuseIdentifier) first!")
         }
         return view
     }

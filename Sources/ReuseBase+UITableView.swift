@@ -43,7 +43,7 @@ extension ReuseBase where Base: UITableView {
     
     public func dequeueHeaderFooterView<T>() -> T where T: UITableViewHeaderFooterView, T: ReusableCell {
         guard let view = base.dequeueReusableHeaderFooterView(withIdentifier: T.reuseIdentifier) as? T else {
-            fatalError("Register HeaderFooterView: \(T.reuseIdentifier) first!")
+            fatalError("Register Header Footer View: \(T.reuseIdentifier) first!")
         }
         return view
     }
