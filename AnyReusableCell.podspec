@@ -8,7 +8,7 @@ Pod::Spec.new do |spec|
   spec.license      = { :type => "MIT", :file => "LICENSE" }
   spec.author       = { "anotheren" => "liudong.edward@gmail.com" }
   
-  spec.ios.deployment_target = '11.0'
+  spec.ios.deployment_target = '8.0'
   spec.swift_versions = ['5.0', '5.1']
   
   spec.source       = { :git => "https://github.com/anotheren/AnyReusableCell.git", :tag => "#{spec.version}" }
