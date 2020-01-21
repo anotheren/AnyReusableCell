@@ -50,11 +50,11 @@ extension ReuseBase where Base: UICollectionView {
         base.register(nib, forCellWithReuseIdentifier: type.reuseIdentifier)
     }
     
-    public func registerClass<T>(supplementaryView type: T.Type, for kind: ElementKind) where T: UICollectionViewCell, T: ReusableCell {
+    public func registerClass<T>(supplementaryView type: T.Type, for kind: ElementKind) where T: UICollectionReusableView, T: ReusableCell {
         base.register(type.self, forSupplementaryViewOfKind: kind.rawValue, withReuseIdentifier: type.reuseIdentifier)
     }
     
-    public func registerNib<T>(supplementaryView type: T.Type, for kind: ElementKind, in bundle: Bundle = .main) where T: UICollectionViewCell, T: ReusableCell {
+    public func registerNib<T>(supplementaryView type: T.Type, for kind: ElementKind, in bundle: Bundle = .main) where T: UICollectionReusableView, T: ReusableCell {
         let nib = UINib(nibName: type.reuseIdentifier, bundle: bundle)
         base.register(nib, forSupplementaryViewOfKind: kind.rawValue, withReuseIdentifier: type.reuseIdentifier)
     }
