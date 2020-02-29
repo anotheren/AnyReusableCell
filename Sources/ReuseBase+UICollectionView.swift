@@ -9,31 +9,28 @@
 #if canImport(UIKit)
 import UIKit
 
-extension ReuseBase where Base: UICollectionView {
+public enum ReuseElementKind: RawRepresentable, Equatable {
     
-    public enum ElementKind: RawRepresentable {
-        
-        case sectionHeader
-        case sectionFooter
-        
-        public init(rawValue: String) {
-            switch rawValue {
-            case UICollectionView.elementKindSectionHeader:
-                self = .sectionHeader
-            case UICollectionView.elementKindSectionFooter:
-                self = .sectionFooter
-            default:
-                fatalError()
-            }
+    case sectionHeader
+    case sectionFooter
+    
+    public init(rawValue: String) {
+        switch rawValue {
+        case UICollectionView.elementKindSectionHeader:
+            self = .sectionHeader
+        case UICollectionView.elementKindSectionFooter:
+            self = .sectionFooter
+        default:
+            fatalError()
         }
-        
-        public var rawValue: String {
-            switch self {
-            case .sectionHeader:
-                return UICollectionView.elementKindSectionHeader
-            case .sectionFooter:
-                return UICollectionView.elementKindSectionFooter
-            }
+    }
+    
+    public var rawValue: String {
+        switch self {
+        case .sectionHeader:
+            return UICollectionView.elementKindSectionHeader
+        case .sectionFooter:
+            return UICollectionView.elementKindSectionFooter
         }
     }
 }
@@ -50,11 +47,11 @@ extension ReuseBase where Base: UICollectionView {
         base.register(nib, forCellWithReuseIdentifier: type.reuseIdentifier)
     }
     
-    public func registerClass<T>(supplementaryView type: T.Type, for kind: ElementKind) where T: UICollectionReusableView, T: ReusableCell {
+    public func registerClass<T>(supplementaryView type: T.Type, for kind: ReuseElementKind) where T: UICollectionReusableView, T: ReusableCell {
         base.register(type.self, forSupplementaryViewOfKind: kind.rawValue, withReuseIdentifier: type.reuseIdentifier)
     }
     
-    public func registerNib<T>(supplementaryView type: T.Type, for kind: ElementKind, in bundle: Bundle = .main) where T: UICollectionReusableView, T: ReusableCell {
+    public func registerNib<T>(supplementaryView type: T.Type, for kind: ReuseElementKind, in bundle: Bundle = .main) where T: UICollectionReusableView, T: ReusableCell {
         let nib = UINib(nibName: type.reuseIdentifier, bundle: bundle)
         base.register(nib, forSupplementaryViewOfKind: kind.rawValue, withReuseIdentifier: type.reuseIdentifier)
     }
@@ -70,7 +67,7 @@ extension ReuseBase where Base: UICollectionView {
         return cell
     }
     
-    public func dequeueSupplementaryView<T>(kind: ElementKind, for indexPath: IndexPath) -> T where T: UICollectionReusableView, T: ReusableCell {
+    public func dequeueSupplementaryView<T>(kind: ReuseElementKind, for indexPath: IndexPath) -> T where T: UICollectionReusableView, T: ReusableCell {
         guard let view = base.dequeueReusableSupplementaryView(ofKind: kind.rawValue, withReuseIdentifier: T.reuseIdentifier, for: indexPath) as? T else {
             fatalError("Register Supplementary View: \(T.reuseIdentifier) first!")
         }
